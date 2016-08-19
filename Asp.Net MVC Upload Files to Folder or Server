@@ -1,0 +1,63 @@
+
+http://www.aspdotnet-suresh.com/2016/08/aspnet-mvc-upload-files-to-folder-server.html
+
+
+Introduction: 
+
+Here I will explain how to upload files to server in asp.net mvc 5 with example or asp.net mvc upload files to folder with example or uploading files with asp.net mvc or how to upload files to directory in asp.net mvc with example or handle file upload in asp.net mvc with example. In asp.net mvc we can upload files by using HttpPostedFileBase property.
+
+Description: 
+   
+In previous articles I explained asp.net mvc global action filters with example, for loop example in asp.net mvc razor view, razor view engine in asp.net mvc with example, asynchronous controllers in asp.net mvc with example, difference between viewbag, viewdata and tempdata with example, validation using fluent validation in asp.net mvc and many articles relating to asp.net mvc, asp.net, c#,vb.net. Now I will explain how to upload files to server or folder in asp.net mvc with example.
+
+To upload files to server / folder in asp.net mvc first we need to create application for that Open visual studio --> Go to File --> Select New --> Project like as shown below
+
+
+Once we select Project new popup will open in that select Asp.Net Web Application and give name to application and click OK like as shown below
+
+create new asp.net mvc application to upload files to server
+Once click OK new popup will open in that select MVC template and click OK like as shown below
+
+select mvc template to create upload files in asp.net mvc
+Once we finished creating application now we will add new folder “uploads” like as shown below
+
+create new folder in asp.net mvc application to upload files
+Now we will add new controller to upload files in folder for that right click on Controller folder --> select Add --> Controller like as shown below
+
+Adding new controller to asp.net mvc application
+Once we click on Controller new popup will open in that select MVC 5 Controller – Empty and click Add like as shown below
+
+select empty mvc controller to add it in asp.net mvc application
+Once click on Add new window will open in that enter name of controller and click Add like as shown below
+
+Give name to controller in asp.net mvc application
+Now open controller and write the code like as shown below
+
+
+[HttpGet]
+public ActionResult UploadFile()
+{
+return View();
+}
+[HttpPost]
+public ActionResult UploadFile(HttpPostedFileBase file)
+{
+try
+{
+if (file!=null && file.ContentLength > 0)
+{
+string filename = Path.GetFileName(file.FileName);
+string path = Path.Combine(Server.MapPath("~/uploads"), filename);
+file.SaveAs(path);
+ViewBag.Result = "File Uploaded Successfully";
+}
+else {
+ViewBag.Result = "No File Uploaded";
+}
+}
+catch
+{
+ViewBag.Result = "File upload failed";
+}
+return View();
+}
